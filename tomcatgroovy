@@ -5,7 +5,7 @@ pipeline{
             steps{
                 println "here we deploy artifacts "
                sh """
-               aws s3 cp s3://jenkins101/origin/harsha/7/hello-7 ec2-user@3.110.92.42:/var/lib/tomcat/webapps
+               aws s3 scp -o StrictHostKeyChecking=no -i tmp/kiran.pem s3://jenkins101/origin/harsha/7/hello-7 ec2-user@3.110.92.42:/var/lib/tomcat/webapps
              """
 
             }
