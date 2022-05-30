@@ -1,21 +1,12 @@
 pipeline{
     agent any
     stages{
-        stage("clone"){
-            steps{
-                println "here we clone code"
-                checkout([$class: 'GitSCM', branches: [[name: '*/harsha']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[ url: 'https://github.com/powerstar101/jenkins.git']]])
-                sh "ls -lart ./*"
-            }
-        }
         stage("deploy"){
             steps{
                 println "here we deploy artifacts "
                sh """
                aws s3 cp s3://jenkins101/origin/$BRANCH/$BUILD_NUMBER/hello-*.war
-                scp -o StrictHostKeyChecking=no -i /tmp/kiran.pem s3 hello-*.war ec2-user:172.31.11.44:/var/lib/tomcat/webapps
-                
-                """
+             """
 
             }
             
