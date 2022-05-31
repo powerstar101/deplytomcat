@@ -1,20 +1,20 @@
 pipeline{
     agent any
     stages{
-        stage("dowload artifacts"){
-            steps{
+        // stage("dowload artifacts"){
+              steps{
                 println "here we download artifacts from s3 into local"
                 sh """
-                echo 'Pulling...' + env.BRANCH_NAME
+                whoami
+                git_branch_local=$(echo $GIT_BRANCH   | sed -e "s|origin/||g")
+                echo $branch
                 echo $BUILD_NUMBER
-                 aws s3 ls
-                 aws s3 cp s3://jenkins101/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war/ .
-                 ls -l
+                aws s3 cp s3://jenlkins101/$branch/$BUILD_NUMBER/hello-$BUILD_NUMBER.war .
                 """
             }
         }
-        stage("deploy artifacts"){
-            steps{
+        // stage("deploy artifacts"){
+             steps{
                 println "here we deploy artifacts"
             }
         }
