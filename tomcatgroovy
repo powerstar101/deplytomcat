@@ -5,7 +5,7 @@ pipeline{
             steps{
                 println "here we download artifacts from s3 into local"
                 sh """
-                echo $GIT-BRANCH
+                echo $branch
                 echo $BUILD_NUMBER
                 aws s3 ls 
                 
