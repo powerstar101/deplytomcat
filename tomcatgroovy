@@ -6,7 +6,7 @@ pipeline{
                 println "here we download artifacts from s3 into local"
                 sh """
                 whoami
-                git_branch_local=$(echo ${GIT_BRANCH}   | sed -e "s|origin/||g")
+                git_branch_local=(echo ${GIT_BRANCH}   | sed -e "s|origin/||g")
                 echo ${GIT_BRANCH}
                 echo ${BUILD_NUMBER}
                 aws s3 cp s3://jenlkins101/${GIT_BRANCH}/${BUILD_NUMBER}/hello-${BUILD_NUMBER}.war .
