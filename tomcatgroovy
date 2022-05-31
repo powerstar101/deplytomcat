@@ -8,7 +8,7 @@ pipeline{
                 echo 'Pulling...' + env.BRANCH_NAME
                 echo $BUILD_NUMBER
                  aws s3 ls
-                 aws s3 cp s3://jenkins101/$BRANCH_NAME/$BUILD_NUMBER/hello-*.war/
+                 aws s3 cp s3://jenkins101/$BRANCH_NAME/$BUILD_NUMBER/hello-*.war/ .
                  ls -l
                  
                 """
