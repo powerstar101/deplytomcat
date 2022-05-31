@@ -10,7 +10,6 @@ pipeline{
                  aws s3 ls
                  aws s3 cp s3://jenkins101/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war/ .
                  ls -l
-                 
                 """
             }
         }
