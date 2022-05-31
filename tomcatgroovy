@@ -1,15 +1,22 @@
 pipeline{
     agent any
     stages{
-        stage("deploy"){
+        stage("dowload artifacts"){
             steps{
-                println "here we deploy artifacts "
-               sh """
-               aws s3 scp -o StrictHostKeyChecking=no -i tmp/kiran.pem s3://jenkins101/origin/harsha/7/hello-7 ec2-user@3.110.92.42:/var/lib/tomcat/webapps
-             """
-
+                println "here we download artifacts from s3 into local"
+                sh """
+                echo 'Pulling...' + env.BRANCH_NAME
+                echo $BUILD_NUMBER
+                aws s3 ls 
+                
+                """
             }
-            
         }
+        stage("deploy artifacts"){
+            steps{
+                println "here we deploy artifacts"
+            }
+        }
+
     }
 }
