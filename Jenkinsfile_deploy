@@ -13,6 +13,10 @@ pipeline {
         stage("deploy artifacts"){
             steps{
                 println "here we deploy artifacts"
+                sh """
+                aws s3 cp s3://jenkins101/origin/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war/ .
+                scp -i /tmp/kiran.pem hello-$BUILD_NUMBER.war ec2-user@172.31.9.50:/var/lib/tomcat/webapps
+                """
             }
         }
     }    
