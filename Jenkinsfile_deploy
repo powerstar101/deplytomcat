@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages{
-        satge("download artifacts from s3 into local"){
+        stage("download artifacts from s3 into local"){
             steps{
                 println "here we download artifacts"
                 sh """
