@@ -1,1 +1,19 @@
-
+pipeline {
+    agent any
+    stages{
+        satge("download artifacts from s3 into local"){
+            steps{
+                println "here we download artifacts"
+                sh """
+                echo $BRANCH_NAME
+                echo $BUILD_NUMBER
+                """
+            }
+        }
+        stage("deploy artifacts"){
+            steps{
+                println "here we deploy artifacts"
+            }
+        }
+    }    
+}
