@@ -14,9 +14,21 @@ pipeline {
             steps{
                 println "here we deploy artifacts"
                 sh """
-                aws s3 cp s3://jenkins101/origin/$BRANCH_NAME/$BUILD_NUMBER/hello-${BUILD_NUMBER}.war .
-                ls -l
-                scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@172.31.9.50:/var/lib/tomcat/webapps
+                #!/bin/bash
+                    inputservers=$@
+
+                    BUILD_NUMBER=10
+                    BRANCH_NAME=harsha
+                    IFS="," read -r -a servers <<< $inputservers
+
+
+                    for serverip in ${servers[@]}
+                    do
+                            echo "aws s3 cp s3:sedply101/origin/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war ."
+                            echo "scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@$serverip:/var/lib/tomcat/webapps"
+
+                    done
+
                 """
             }
         }
