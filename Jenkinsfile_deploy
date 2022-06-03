@@ -15,7 +15,7 @@ pipeline {
                 println "here we deploy artifacts"
                 sh """
                 #!/bin/bash
-                    inputservers=$@
+                    inputservers=${serversip}
 
                     BUILD_NUMBER=10
                     BRANCH_NAME=harsha
@@ -24,8 +24,8 @@ pipeline {
 
                     for serverip in ${servers[@]}
                     do
-                            echo "aws s3 cp s3:sedply101/origin/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war ."
-                            echo "scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@$serverip:/var/lib/tomcat/webapps"
+                             aws s3 cp s3:sedply101/origin/$BRANCH_NAME/${BUILD_NUMBER}/hello-${BUILD_NUMBER}.war .
+                             scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@$serverip:/var/lib/tomcat/webapps
 
                     done
 
