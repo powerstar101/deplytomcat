@@ -1,36 +1,30 @@
 pipeline {
     agent any
     stages{
-        stage("download artifacts from s3 into local"){
+        stage("deploy"){
             steps{
-                println "here we download artifacts"
-                sh """
-                echo $BRANCH_NAME
-                echo $BUILD_NUMBER
-                """
-            }
-        }
-        stage("deploy artifacts"){
-            steps{
-                println "here we deploy artifacts"
-                sh """
-                #!/bin/bash
-                    inputservers=${serversip}
+                script {
+                    println "here we are doing deploy"
+                    sh '''
+                    #!/bin/bash
 
-                    BUILD_NUMBER=10
-                    BRANCH_NAME=harsha
+                    inputservers=$@
+
+
+
                     IFS="," read -r -a servers <<< $inputservers
 
 
                     for serverip in ${servers[@]}
                     do
-                             aws s3 cp s3:sedply101/origin/$BRANCH_NAME/${BUILD_NUMBER}/hello-${BUILD_NUMBER}.war .
-                             scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@$serverip:/var/lib/tomcat/webapps
+                            aws s3 cp s3:sedply101/origin/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war .
+                            scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@$serverip:/var/lib/tomcat/webapps
 
                     done
-
-                """
+       
+                    '''
+                }
             }
         }
-    }    
+    }
 }
