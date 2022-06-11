@@ -11,13 +11,13 @@ pipeline {
                     echo $build_number
                     echo $serverip
 
-                    myservers=${@}
+                    myservers=$@
 
                     IFS="," read -r -a outputservers <<< $myservers
 
                     for serverip in ${outputservers[@]}
                     do 
-                            aws s3 cp s3deply101/origin/$branch/$build_number/hello-$build_number.war .
+                            aws s3 cp s3deply101/origin/$branch/${build_number}/hello-${build_number}.war .
 
                     done
                     """
