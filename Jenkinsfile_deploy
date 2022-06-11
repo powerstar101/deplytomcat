@@ -7,20 +7,19 @@ pipeline {
                     println "here we are doing deploy"
                     sh '''
                     #!bin/bash/
-                    echo $BRANCH_NAME
-                    echo $BUILD_NUMBER
+                    echo $branch
+                    echo $build_number
+                    echo $serverip
 
                     myservers=$@
 
                     IFS="," read -r -a outputservers <<< $myservers
 
                     for serverip in ${outputservers[@]}
-                    do
-                            echo "hello" $serverip
+                    do 
+                            aws s3 cp s3deply101/origin/$branch/$build_number/hello-$build_number.war .
 
                     done
-
-       
                     '''
                 }
             }
