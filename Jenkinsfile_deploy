@@ -7,11 +7,10 @@ pipeline {
                     println "here we are doing deploy"
                     sh '''
                     #!/bin/bash
+                    echo $BRANCH_NAME $BUILD_NUMBER $serverip
+                    echo "hello"
 
                     inputservers=$@
-
-
-
                     IFS="," read -r -a servers <<< $inputservers
 
 
