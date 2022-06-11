@@ -5,21 +5,8 @@ pipeline {
             steps{
                 script {
                     println "here we are doing deploy"
-                    sh '''
-                    #!bin/bash/
-                    echo $branch
-                    echo $BUILD_NUMBER
-
-                    myservers=$@
-
-                    IFS="," read -r -a outputservers <<< $myservers
-
-                    for serverip in ${outputservers[@]}
-                    do 
-                            aws s3 cp s3deply101/origin/$branch/$BUILD_NUMBER/hello-$BUILD_NUMBER.war .
-
-                    done
-                    '''
+                    sh "aws s3 cp s3deply101/origin/$branch/$BUILD_NUMBER/hello-$BUILD_NUMBER.war"
+                    sh "echo $branch $BUILD_NUMBER"
                 }
             }
         }
