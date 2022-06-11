@@ -5,7 +5,7 @@ pipeline {
             steps{
                 script {
                     println "here we are doing deploy"
-                    sh """
+                    sh '''
                     #!bin/bash/
                     echo $branch
                     echo $build_number
@@ -20,7 +20,7 @@ pipeline {
                             aws s3 cp s3deply101/origin/$branch/${build_number}/hello-${build_number}.war .
 
                     done
-                    """
+                    '''
                 }
             }
         }
