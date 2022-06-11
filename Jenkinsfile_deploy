@@ -11,7 +11,7 @@ pipeline {
                     echo $build_number
                     echo $serverip
 
-                    myservers=$@
+                    myservers=${@}
 
                     IFS="," read -r -a outputservers <<< $myservers
 
