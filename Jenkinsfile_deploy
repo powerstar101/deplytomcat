@@ -6,20 +6,18 @@ pipeline {
                 script {
                     println "here we are doing deploy"
                     sh '''
-                    #!/bin/bash
-                    echo $BRANCH_NAME $BUILD_NUMBER $serverip
-                    echo "hello"
+                    #!bin/bash/
 
-                    inputservers=$@
-                    IFS="," read -r -a servers <<< $inputservers
+                    myservers=$@
 
+                    IFS="," read -r -a outputservers <<< $myservers
 
-                    for serverip in ${servers[@]}
+                    for serverip in ${outputservers[@]}
                     do
-                            aws s3 cp s3:sedply101/origin/$BRANCH_NAME/$BUILD_NUMBER/hello-$BUILD_NUMBER.war .
-                            scp -i /tmp/kiran.pem hello-${BUILD_NUMBER}.war ec2-user@$serverip:/var/lib/tomcat/webapps
+                            echo "hello" $serverip
 
                     done
+
        
                     '''
                 }
