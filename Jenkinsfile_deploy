@@ -8,8 +8,7 @@ pipeline {
                     sh '''
                     #!bin/bash/
                     echo $branch
-                    echo $build_number
-                    echo $serverip
+                    echo $BUILD_NUMBER
 
                     myservers=$@
 
@@ -17,7 +16,7 @@ pipeline {
 
                     for serverip in ${outputservers[@]}
                     do 
-                            aws s3 cp s3deply101/origin/$branch/$build_number/hello-$build_number.war .
+                            aws s3 cp s3deply101/origin/$branch/$BUILD_NUMBER/hello-$BUILD_NUMBER.war .
 
                     done
                     '''
